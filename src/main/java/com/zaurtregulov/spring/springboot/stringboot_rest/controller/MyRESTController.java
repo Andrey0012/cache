@@ -1,8 +1,8 @@
 package com.zaurtregulov.spring.springboot.stringboot_rest.controller;
 
 
-import com.zaurtregulov.spring.springboot.stringboot_rest.entity.Employee;
-import com.zaurtregulov.spring.springboot.stringboot_rest.service.EmployeeService;
+import com.zaurtregulov.spring.springboot.stringboot_rest.entity.Element;
+import com.zaurtregulov.spring.springboot.stringboot_rest.service.ElementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,34 +13,40 @@ import java.util.List;
 public class MyRESTController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private ElementService elementService;
 
-    @GetMapping("/employees")
-    public List <Employee> showAllEmployee () {
-      List<Employee> allEmployees =  employeeService.getAllEmployees();
-      return allEmployees;
-    }
-    @GetMapping("/employees/{id}")
-    public Employee getEmployee (@PathVariable int id) {
-        Employee employee =employeeService.getEmployee(id);
+//    @GetMapping("/employees")
+//    public List <Element> showAllEmployee () {
+//      List<Element> allEmployees =  employeeService.getAllEmployees();
+//      return allEmployees;
+//    }
+    @GetMapping("/cache/{id}")
+    public Element getElement (@PathVariable int id) {
+        Element element =elementService.getElement(id);
 
-        return employee;
+        return element;
     }
-    @PostMapping ("/employees")
-    public Employee addNewEmployee (@RequestBody Employee employee) {
-        employeeService.saveEmployee(employee);
-        return employee;
+    @PostMapping ("/cache")
+    public Element addNewEmployee (@RequestBody Element element) {
+        elementService.saveElement(element);
+        return element;
     }
-    @PutMapping ("/employees")
-    public Employee updateEmployee (@RequestBody Employee employee) {
-        employeeService.saveEmployee(employee);
-        return employee;
+    @PostMapping ("/cache/{id}")
+    public Element addNewEmployee (@PathVariable int id,@RequestBody Element element ) {
+        elementService.saveElement(element);
+        return element;
     }
-    @DeleteMapping("/employees/{id}")
-    public String deleteEmployee (@PathVariable int id) {
-        Employee employee=employeeService.getEmployee(id);
 
-        employeeService.deleteEmployee(id);
-        return "Employee where ID = " + id + " delete";
+    @PutMapping ("/cache")
+    public Element updateElement (@RequestBody Element element) {
+        elementService.saveElement(element);
+        return element;
     }
+//    @DeleteMapping("/employees/{id}")
+//    public String deleteEmployee (@PathVariable int id) {
+//        Element employee=employeeService.getEmployee(id);
+//
+//        employeeService.deleteEmployee(id);
+//        return "Element where ID = " + id + " delete";
+//    }
 }
